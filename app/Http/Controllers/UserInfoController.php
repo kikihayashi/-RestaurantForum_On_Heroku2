@@ -363,7 +363,7 @@ class UserInfoController extends Controller
     public function addCategory()
     {
         //確認新增的餐廳種類是否已存在
-        $maybeHaveThisCategory = Category::where('name', request('categoryName'))->firstOrFail();
+        $maybeHaveThisCategory = Category::where('name', request('categoryName'))->first();
 
         if (isset($maybeHaveThisCategory->name)) {
             return redirect(route('UserInfoController.showCategory'))->with('errorMessage', '此餐廳種類已存在！');
