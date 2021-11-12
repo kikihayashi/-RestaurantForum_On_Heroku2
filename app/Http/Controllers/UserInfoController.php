@@ -20,7 +20,7 @@ class UserInfoController extends Controller
         $user = User::findOrFail($selectUserID);
 
         $comments = DB::table('comments')
-            ->join('restaurants', 'comments.restaurant_id', '=', 'restaurants.id')
+            ->join('restaurants', 'comments.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
             ->select('comments.restaurant_id', 'restaurants.name AS restaurantName')
             ->where('comments.user_id', $selectUserID)
             ->groupBy('comments.restaurant_id', 'restaurants.name')
@@ -28,7 +28,7 @@ class UserInfoController extends Controller
 
         $favorite = Favorite::where('user_id', $selectUserID)
             ->where('is_favorite', '=', 'Y')
-            ->join('restaurants', 'favorites.restaurant_id', '=', 'restaurants.id')
+            ->join('restaurants', 'favorites.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
             ->selectRaw('favorites.* , restaurants.name AS restaurantName')
             ->get();
 
@@ -39,19 +39,19 @@ class UserInfoController extends Controller
 
         $follow = Relation::where('user_id', $selectUserID)
             ->where('follow', 'Y')
-            ->join('users', 'interpersonal_relations.relation_user_id', '=', 'users.id')
+            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
             ->get();
 
         $follower = Relation::where('relation_user_id', $selectUserID)
             ->where('follow', 'Y')
-            ->join('users', 'interpersonal_relations.user_id', '=', 'users.id')
+            ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
             ->get();
 
         $friend = Relation::where('user_id', $selectUserID)
             ->where('friend', 'Y')
-            ->join('users', 'interpersonal_relations.relation_user_id', '=', 'users.id')
+            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
             ->get();
 
@@ -163,7 +163,7 @@ class UserInfoController extends Controller
     {
         $friends = Relation::where('user_id', $userID)
             ->where('friend', 'Y')
-            ->join('users', 'interpersonal_relations.relation_user_id', '=', 'users.id')
+            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
             ->get();
 
@@ -262,7 +262,7 @@ class UserInfoController extends Controller
     {
         $restaurants = DB::table('restaurants')
             ->orderBy('restaurants.updated_at', 'DESC')
-            ->join('categories', 'restaurants.category_id', '=', 'categories.id')
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
             ->selectRaw('restaurants.* , categories.name AS categoryName')
             ->paginate(5);
 
@@ -274,7 +274,7 @@ class UserInfoController extends Controller
     public function readRestaurant($id)
     {
         $restaurant = Restaurant::where('restaurants.id', '=', $id)
-            ->join('categories', 'restaurants.category_id', '=', 'categories.id')
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
             ->selectRaw('restaurants.* , categories.name AS categoryName')
             ->firstOrFail();
 
