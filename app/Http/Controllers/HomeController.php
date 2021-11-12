@@ -7,7 +7,8 @@ use App\Models\Comment;
 use App\Models\Favorite;
 use App\Models\Relation;
 use App\Models\Restaurant;
-use DB;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller

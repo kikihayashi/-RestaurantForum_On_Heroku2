@@ -7,6 +7,8 @@ use App\Models\Comment;
 use App\Models\Favorite;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class RestaurantController extends Controller
 {
