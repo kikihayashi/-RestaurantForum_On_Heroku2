@@ -11,7 +11,7 @@
       <a href="{{route('UserInfoController.user',$relation->user_id)}}">
 
         @if(File::exists('img/'.$relation->user_account.'.jpg'))
-        <img class="rounded" style="width: 140px;height:128px" src="../../img/{{$relation->userAccount}}.jpg"
+        <img class="rounded" style="width: 140px;height:128px" src="../../img/{{$relation->user_account}}.jpg"
           alt="沒有大頭貼">
         @else
         <img class="rounded" style="width: 140px;height:128px"
