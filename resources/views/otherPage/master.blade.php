@@ -18,7 +18,7 @@
           src="https://lorempixel.com/400/200/cats/{{$relation->user_id%10}}" alt="圖片已失效">
         @endif
 
-        <h4 style="text-align:center">{{$relation->userName}}</h4>
+        <h4 style="text-align:center">{{$relation->user_name}}</h4>
       </a>
       <!-- 此layout是登入者和所選擇的人是不同人的情況 -->
       @include('layouts.friend_and_follow',

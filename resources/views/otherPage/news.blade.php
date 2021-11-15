@@ -15,7 +15,7 @@
           <h4 class="card-title">
             <a class="card-title"
               href="{{route('RestaurantController.restaurant',$thisRestaurant->id)}}">{{$thisRestaurant->name}}</a>
-            <small style="font-size:15px">({{$thisRestaurant->categoryName}})</small>
+            <small style="font-size:15px">({{$thisRestaurant->category_name}})</small>
           </h4>
           <p class="card-text" style="font-size:10px">{{$thisRestaurant->content}}</p>
           <hr>
@@ -32,12 +32,12 @@
           <div>
             <h4>
               <a
-                href="{{route('RestaurantController.restaurant',$thisComment->restaurant_id)}}">{{$thisComment->restaurantName}}</a>
+                href="{{route('RestaurantController.restaurant',$thisComment->restaurant_id)}}">{{$thisComment->restaurant_name}}</a>
             </h4>
             <h5 style="color:green">{{$thisComment->comment}}</h5>
             <p style="margin-left:45%">
               {{$thisComment->updated_at}} -by
-              <a href="{{route('UserInfoController.user',$thisComment->user_id)}}">{{$thisComment->userName}}</a>
+              <a href="{{route('UserInfoController.user',$thisComment->user_id)}}">{{$thisComment->user_name}}</a>
             </p>
             <hr>
           </div>

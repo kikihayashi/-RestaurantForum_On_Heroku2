@@ -57,7 +57,7 @@
           </h3>
           <p class="badge badge-dark">
             <a style="color:white" href="{{route('RestaurantController.category',$thisRestaurant->category_id)}}">
-              {{$thisRestaurant->categoryName}}</a>
+              {{$thisRestaurant->category_name}}</a>
           </p>
           <p>{{$thisRestaurant->content}}</p>
           <!-- 這裡是加到最愛和按讚的模板 -->

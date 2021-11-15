@@ -27,7 +27,7 @@
       @foreach($allRestaurants as $restaurant)
       <tr>
         <th scope="row">{{$restaurant->id}}</th>
-        <td>{{$restaurant->categoryName}}</td>
+        <td>{{$restaurant->category_name}}</td>
         <td>{{$restaurant->name}}</td>
       </tr>
 

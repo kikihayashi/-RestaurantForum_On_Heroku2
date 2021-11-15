@@ -32,10 +32,10 @@ class HomeController extends Controller
     {
         $categories = Category::orderBy('id', 'ASC')->get();
         $restaurants = Restaurant::join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->selectRaw('restaurants.* , categories.name AS categoryName')
+            ->selectRaw('restaurants.* , categories.name AS category_name')
             ->paginate(6);
 
-        dd($restaurants);
+        // dd($restaurants);
 
         $statusCollection = Favorite::where('user_id', Auth::id())
             ->get();
@@ -57,14 +57,14 @@ class HomeController extends Controller
     {
         $restaurants = Restaurant::orderBy('created_at', 'DESC')
             ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->selectRaw('restaurants.* , categories.name AS categoryName')
+            ->selectRaw('restaurants.* , categories.name AS category_name')
             ->take(10)
             ->get();
 
         $comments = Comment::orderBy('updated_at', 'DESC')
             ->join('restaurants', 'comments.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
             ->join('users', 'comments.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('comments.* , restaurants.name AS restaurantName, users.name AS userName')
+            ->selectRaw('comments.* , restaurants.name AS restaurant_name, users.name AS user_name')
             ->take(10)
             ->get();
 
@@ -90,7 +90,7 @@ class HomeController extends Controller
             ->select('restaurants.id',
                 'restaurants.name',
                 'restaurants.content',
-                'categories.name AS categoryName',
+                'categories.name AS category_name',
                 'restaurants.created_at',
                 DB::raw("COUNT(*) AS favoriteNumber"))
             ->where('favorites.is_favorite', 'Y')
@@ -124,7 +124,7 @@ class HomeController extends Controller
                     'restaurants.name',
                     'restaurants.content',
                     'restaurants.created_at',
-                    'categories.name AS categoryName')
+                    'categories.name AS category_name')
                 ->groupBy('restaurants.id',
                     'restaurants.name',
                     'restaurants.content',
@@ -170,7 +170,7 @@ class HomeController extends Controller
         $relations = DB::Table('interpersonal_relations')
             ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
             ->select('interpersonal_relations.user_id',
-                'users.name AS userName', 'users.account AS userAccount', DB::raw('COUNT(*) AS followNumber'))
+                'users.name AS user_name', 'users.account AS userAccount', DB::raw('COUNT(*) AS followNumber'))
             ->where('interpersonal_relations.follow', 'Y')
             ->where('interpersonal_relations.user_id', '<>', Auth::id())
             ->groupBy('interpersonal_relations.user_id',

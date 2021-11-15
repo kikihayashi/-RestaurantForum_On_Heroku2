@@ -9,7 +9,6 @@ use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
 class RestaurantController extends Controller
 {
     //加入顯示頁(針對傳入種類id資料庫顯示第幾筆資料)
@@ -18,7 +17,7 @@ class RestaurantController extends Controller
         $categories = Category::orderBy('id', 'ASC')->get();
         $restaurants = Restaurant::where('category_id', $category_id)
             ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->selectRaw('restaurants.* , categories.name AS categoryName')
+            ->selectRaw('restaurants.* , categories.name AS category_name')
             ->paginate(6);
 
         $statusCollection = Favorite::where('user_id', Auth::id())
@@ -42,12 +41,12 @@ class RestaurantController extends Controller
     {
         $restaurant = Restaurant::where('restaurants.id', $restaurant_id)
             ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->selectRaw('restaurants.* , categories.name AS categoryName')
+            ->selectRaw('restaurants.* , categories.name AS category_name')
             ->firstOrFail();
 
         $comments = Comment::where('restaurant_id', $restaurant_id)
             ->join('users', 'comments.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('comments.* , users.name AS userName')
+            ->selectRaw('comments.* , users.name AS user_name')
             ->orderBy('updated_at', 'DESC')
             ->get();
 
@@ -65,7 +64,7 @@ class RestaurantController extends Controller
     //餐廳資訊頁面
     public function info($restaurant_id)
     {
-        $restaurantName = Restaurant::where('id', $restaurant_id)->firstOrFail()()->name;
+        $restaurantName = Restaurant::where('id', $restaurant_id)->firstOrFail()->name;
         $comment = Comment::where('restaurant_id', $restaurant_id)->get();
         $favorite = Favorite::where('restaurant_id', $restaurant_id)
             ->where('is_favorite', 'Y')->get();

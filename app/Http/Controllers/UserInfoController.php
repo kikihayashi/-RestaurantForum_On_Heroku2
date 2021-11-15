@@ -21,7 +21,7 @@ class UserInfoController extends Controller
 
         $comments = DB::table('comments')
             ->join('restaurants', 'comments.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
-            ->select('comments.restaurant_id', 'restaurants.name AS restaurantName')
+            ->select('comments.restaurant_id', 'restaurants.name AS restaurant_name')
             ->where('comments.user_id', $selectUserID)
             ->groupBy('comments.restaurant_id', 'restaurants.name')
             ->get();
@@ -29,7 +29,7 @@ class UserInfoController extends Controller
         $favorite = Favorite::where('user_id', $selectUserID)
             ->where('is_favorite', '=', 'Y')
             ->join('restaurants', 'favorites.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
-            ->selectRaw('favorites.* , restaurants.name AS restaurantName')
+            ->selectRaw('favorites.* , restaurants.name AS restaurant_name')
             ->get();
 
         $status = Relation::where('user_id', Auth::id())
@@ -40,19 +40,19 @@ class UserInfoController extends Controller
         $follow = Relation::where('user_id', $selectUserID)
             ->where('follow', 'Y')
             ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
             ->get();
 
         $follower = Relation::where('relation_user_id', $selectUserID)
             ->where('follow', 'Y')
             ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
             ->get();
 
         $friend = Relation::where('user_id', $selectUserID)
             ->where('friend', 'Y')
             ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
             ->get();
 
         $array = [
@@ -164,7 +164,7 @@ class UserInfoController extends Controller
         $friends = Relation::where('user_id', $userID)
             ->where('friend', 'Y')
             ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUserName, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
             ->get();
 
         return view('userInfo.detail.friend', ['allFriends' => $friends]);
@@ -260,15 +260,9 @@ class UserInfoController extends Controller
     //所有餐廳頁面
     public function showRestaurant()
     {
-        // $restaurants = DB::table('restaurants')
-        //     ->orderBy('restaurants.updated_at', 'DESC')
-        //     ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-        //     ->selectRaw('restaurants.* , categories.name AS categoryName')
-        //     ->paginate(5);
-
         $restaurants = Restaurant::orderBy('restaurants.updated_at', 'DESC')
             ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->selectRaw('restaurants.* , categories.name AS categoryName')
+            ->selectRaw('restaurants.* , categories.name AS category_name')
             ->paginate(5);
 
         // dd($restaurants);
@@ -282,7 +276,7 @@ class UserInfoController extends Controller
     {
         $restaurant = Restaurant::where('restaurants.id', '=', $id)
             ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->selectRaw('restaurants.* , categories.name AS categoryName')
+            ->selectRaw('restaurants.* , categories.name AS category_name')
             ->firstOrFail();
 
         return view('userInfo.admin.read', ['thisRestaurant' => $restaurant]);

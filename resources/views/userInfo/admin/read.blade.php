@@ -7,7 +7,7 @@
   電話: {{$thisRestaurant->tel}}<br>
   地址: {{$thisRestaurant->address}}<br>
   描述:{{$thisRestaurant->content}}<br>
-  種類：{{$thisRestaurant->categoryName}}<br>
+  種類：{{$thisRestaurant->category_name}}<br>
   <a href="{{route('UserInfoController.showRestaurant')}}">回到所有餐廳</a>
 </section>
 

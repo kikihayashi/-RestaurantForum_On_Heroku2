@@ -8,7 +8,7 @@
 
       <div class="col-md-12">
         <h1>{{$thisRestaurant->name}}</h1>
-        <p>{{$thisRestaurant->categoryName}}</p>
+        <p>{{$thisRestaurant->category_name}}</p>
       </div>
 
       <div class="col-md-4">
@@ -39,7 +39,7 @@
   @if(isset($allComment) && count($allComment) > 0)
   @foreach($allComment as $comment)
   <section style="margin-left:2%">
-    <h4><a href="{{route('UserInfoController.user',$comment->user_id)}}">{{$comment->userName}}</a></h4>
+    <h4><a href="{{route('UserInfoController.user',$comment->user_id)}}">{{$comment->user_name}}</a></h4>
     <p></p>
     <p>{{$comment->comment}}</p>
     <p></p>

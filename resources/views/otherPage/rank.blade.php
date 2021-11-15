@@ -13,7 +13,7 @@
     <div style="margin-left:3%;">
       <p>
       <h4><a href="{{route('RestaurantController.restaurant',$thisRestaurant['id'])}}">{{$thisRestaurant['name']}}</a>
-        <small>{{$thisRestaurant['categoryName']}}</small>
+        <small>{{$thisRestaurant['category_name']}}</small>
         收藏數：{{$thisRestaurant['favoriteNumber']}}
       </h4>
       {{$thisRestaurant['content']}}

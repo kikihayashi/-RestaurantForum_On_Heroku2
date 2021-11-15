@@ -63,7 +63,7 @@
             <div class="div-img-avatar">
               <img class="rounded mx-auto d-block"
                 src="http://lorempixel.com/100/100/food/{{$comment->restaurant_id%10}}" alt="圖片已失效">
-              <h5>{{$comment->restaurantName}}</h5>
+              <h5>{{$comment->restaurant_name}}</h5>
             </div>
           </a>
         </div>
@@ -85,7 +85,7 @@
             <div class="div-img-avatar">
               <img class="rounded mx-auto d-block"
                 src="http://lorempixel.com/100/100/food/{{$favorite->restaurant_id%10}}" alt="圖片已失效">
-              <h5>{{$favorite->restaurantName}}</h5>
+              <h5>{{$favorite->restaurant_name}}</h5>
             </div>
           </a>
         </div>
@@ -111,7 +111,7 @@
               <img class="rounded mx-auto d-block"
                 src="https://lorempixel.com/400/200/cats/{{$follow->relation_user_id%10}}" alt="圖片已失效">
               @endif
-              <h5>{{$follow->relationUserName}}</h5>
+              <h5>{{$follow->relationUser_name}}</h5>
             </div>
           </a>
         </div>
@@ -140,7 +140,7 @@
                 alt="圖片已失效">
               @endif
 
-              <h5>{{$follower->relationUserName}}</h5>
+              <h5>{{$follower->relationUser_name}}</h5>
             </div>
           </a>
         </div>

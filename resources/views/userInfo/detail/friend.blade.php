@@ -23,7 +23,7 @@
         <img class="rounded" style="width: 140px;height:128px;" src={{$srcUrl}} alt={{$altMsg}}>
 
         <br><br>
-        <h4>{{$friend->relationUserName}}</h4>
+        <h4>{{$friend->relationUser_name}}</h4>
       </a>
       <br>
     </div>
