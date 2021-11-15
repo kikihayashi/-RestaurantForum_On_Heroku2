@@ -80,7 +80,14 @@ class UserInfoController extends Controller
     {
         $user = User::findOrFail(Auth::id());
         $newAccount = request('user');
+        $checkUser = User::where('email', $newAccount['new_email'])->first();
 
+        // dd($checkUser);
+        if (isset($checkUser)) {
+            if ($checkUser->id != Auth::id()) {
+                return redirect(route('UserInfoController.manage'))->with('errorMessage', '此信箱已有人使用');
+            }
+        }
         //如果目前密碼確認無誤
         if (Hash::check($newAccount['password'], $user->password)) {
             //如果新密碼 & 再次驗證相同
