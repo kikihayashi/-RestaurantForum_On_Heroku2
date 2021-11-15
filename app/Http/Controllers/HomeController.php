@@ -122,7 +122,6 @@ class HomeController extends Controller
         if ($number < 10) {
             $restaurants_created_at = DB::table('restaurants')
                 ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-                ->join('favorites', DB::raw("CAST(restaurants.id AS CHAR)"), '=', 'favorites.restaurant_id')
                 ->select('restaurants.id',
                     'restaurants.name',
                     'restaurants.content',
