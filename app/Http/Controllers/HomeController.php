@@ -108,13 +108,15 @@ class HomeController extends Controller
             $restaurants[$i] = (array) $restaurants_has_number[$i];
         }
 
-        usort($restaurants, function ($restaurant1, $restaurant2) {
-            return $restaurant2['favoriteNumber'] - $restaurant1['favoriteNumber'];
-        });
-
+        if (isset($restaurants)) {
+            usort($restaurants, function ($restaurant1, $restaurant2) {
+                return $restaurant2['favorite_number'] - $restaurant1['favorite_number'];
+            });
+            $number = count($restaurants);
+        } else {
+            $number = 0;
+        }
         // dd($restaurants);
-
-        $number = count($restaurants);
 
         if ($number < 10) {
             $restaurants_created_at = DB::table('restaurants')
@@ -140,7 +142,7 @@ class HomeController extends Controller
                     continue;
                 } else {
                     $tempArray = (array) $restaurant_created_at;
-                    $tempArray['favoriteNumber'] = "0";
+                    $tempArray['favorite_number'] = "0";
                     $restaurants[$number] = $tempArray;
                     $number++;
                 }
