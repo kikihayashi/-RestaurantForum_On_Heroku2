@@ -82,7 +82,6 @@ class UserInfoController extends Controller
         $newAccount = request('user');
         $checkUser = User::where('email', $newAccount['new_email'])->first();
 
-        // dd($checkUser);
         if (isset($checkUser)) {
             if ($checkUser->id != Auth::id()) {
                 return redirect(route('UserInfoController.manage'))->with('errorMessage', '此信箱已有人使用');

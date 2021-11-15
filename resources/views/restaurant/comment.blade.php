@@ -23,7 +23,7 @@
       </div>
 
       <div class="col-md-8">
-        <p>{{$thisRestaurant->content}}</p> <br>
+        <p style="overflow: hidden;">{{$thisRestaurant->content}}</p> <br>
         <a class="btn btn-success" href="{{route('RestaurantController.info',$thisRestaurant->id)}}">餐廳資訊</a>
         <!-- 這裡是加到最愛和按讚的模板 -->
         @include('layouts.favorite_and_like',
@@ -39,7 +39,7 @@
   @if(isset($allComment) && count($allComment) > 0)
   @foreach($allComment as $comment)
   <section style="margin-left:2%">
-    <h4><a href="{{route('UserInfoController.user',$comment->user_id)}}">{{$comment->user_name}}</a></h4>
+    <h4><a href="{{route('UserInfoController.user', $comment->user_id)}}">{{$comment->user_name}}</a></h4>
     <p></p>
     <p>{{$comment->comment}}</p>
     <p></p>
