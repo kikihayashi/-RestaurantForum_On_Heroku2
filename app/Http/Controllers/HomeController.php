@@ -103,7 +103,7 @@ class HomeController extends Controller
             ->get()
             ->toArray();
 
-        dd($restaurants_has_number);
+        dd(count($restaurants_has_number));
 
         if (isset($restaurants_has_number)) {
             for ($i = 0; $i < count($restaurants_has_number); $i++) {
