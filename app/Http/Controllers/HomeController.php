@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         $categories = Category::orderBy('id', 'ASC')->get();
         $restaurants = Restaurant::join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->select('*')
+            ->selectRaw('restaurants.* , categories.name AS categoryName')
             ->paginate(6);
 
         // dd($restaurants);
