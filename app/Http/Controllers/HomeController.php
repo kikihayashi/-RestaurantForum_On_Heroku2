@@ -172,7 +172,7 @@ class HomeController extends Controller
         $relations = DB::Table('interpersonal_relations')
             ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
             ->select('interpersonal_relations.user_id',
-                'users.name AS user_name', 'users.account AS userAccount', DB::raw('COUNT(*) AS follow_number'))
+                'users.name AS user_name', 'users.account AS user_account', DB::raw('COUNT(*) AS follow_number'))
             ->where('interpersonal_relations.follow', 'Y')
             ->where('interpersonal_relations.user_id', '<>', Auth::id())
             ->groupBy('interpersonal_relations.user_id',

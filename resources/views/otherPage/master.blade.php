@@ -10,7 +10,7 @@
     <div style="text-align: center;" class="col-sm-6 col-md-3" style="border-style:solid; border-color:red;">
       <a href="{{route('UserInfoController.user',$relation->user_id)}}">
 
-        @if(File::exists('img/'.$relation->userAccount.'.jpg'))
+        @if(File::exists('img/'.$relation->user_account.'.jpg'))
         <img class="rounded" style="width: 140px;height:128px" src="../../img/{{$relation->userAccount}}.jpg"
           alt="沒有大頭貼">
         @else
