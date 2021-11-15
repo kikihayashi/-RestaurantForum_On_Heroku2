@@ -7,9 +7,8 @@ use App\Models\Comment;
 use App\Models\Favorite;
 use App\Models\Relation;
 use App\Models\Restaurant;
-use Illuminate\Support\Facades\DB;
-
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -32,7 +31,7 @@ class HomeController extends Controller
     public function home()
     {
         $categories = Category::orderBy('id', 'ASC')->get();
-        $restaurants = Restaurant::join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+        $restaurants = Restaurant::leftJoin('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
             ->selectRaw('restaurants.* , categories.name AS categoryName')
             ->paginate(6);
 
