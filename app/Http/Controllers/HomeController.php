@@ -35,7 +35,7 @@ class HomeController extends Controller
             ->selectRaw('restaurants.* , categories.name AS categoryName')
             ->paginate(6);
 
-        // dd($restaurants);
+        dd($restaurants);
 
         $statusCollection = Favorite::where('user_id', Auth::id())
             ->get();
