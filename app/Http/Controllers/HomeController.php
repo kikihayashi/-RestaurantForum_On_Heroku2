@@ -103,9 +103,9 @@ class HomeController extends Controller
             ->get()
             ->toArray();
 
-        dd(count($restaurants_has_number));
+        // dd(count($restaurants_has_number));
 
-        if (isset($restaurants_has_number)) {
+        if (count($restaurants_has_number) > 0) {
             for ($i = 0; $i < count($restaurants_has_number); $i++) {
                 $idSet[$i] = $restaurants_has_number[$i]->id;
                 $restaurants[$i] = (array) $restaurants_has_number[$i];
