@@ -260,8 +260,13 @@ class UserInfoController extends Controller
     //所有餐廳頁面
     public function showRestaurant()
     {
-        $restaurants = DB::table('restaurants')
-            ->orderBy('restaurants.updated_at', 'DESC')
+        // $restaurants = DB::table('restaurants')
+        //     ->orderBy('restaurants.updated_at', 'DESC')
+        //     ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+        //     ->selectRaw('restaurants.* , categories.name AS categoryName')
+        //     ->paginate(5);
+
+        $restaurants = Restaurant::orderBy('restaurants.updated_at', 'DESC')
             ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
             ->selectRaw('restaurants.* , categories.name AS categoryName')
             ->paginate(5);
