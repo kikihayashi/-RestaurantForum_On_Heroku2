@@ -59,7 +59,7 @@
             <a style="color:white" href="{{route('RestaurantController.category',$thisRestaurant->category_id)}}">
               {{$thisRestaurant->category_name}}</a>
           </p>
-          <p>{{$thisRestaurant->content}}</p>
+          <p style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{{$thisRestaurant->content}}</p>
           <!-- 這裡是加到最愛和按讚的模板 -->
           @include('layouts.favorite_and_like',
           ['page'=>"home",
@@ -77,7 +77,6 @@
 
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
-
     @if($thisTypeRestaurants->currentPage()!=1)
     <li class="page-item">
       <a class="page-link" href="{{$thisTypeRestaurants->url(1)}}" aria-label="First">
