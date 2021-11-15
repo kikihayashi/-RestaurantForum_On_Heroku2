@@ -262,9 +262,11 @@ class UserInfoController extends Controller
     {
         $restaurants = DB::table('restaurants')
             ->orderBy('restaurants.updated_at', 'DESC')
-            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+            ->leftJoin('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
             ->selectRaw('restaurants.* , categories.name AS categoryName')
             ->paginate(5);
+
+        // dd($restaurants);
 
         //資料夾寫法
         return view('userInfo.admin.restaurants', ['allRestaurants' => $restaurants]);
