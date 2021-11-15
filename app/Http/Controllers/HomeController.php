@@ -103,12 +103,12 @@ class HomeController extends Controller
             ->get()
             ->toArray();
 
-        for ($i = 0; $i < count($restaurants_has_number); $i++) {
-            $idSet[$i] = $restaurants_has_number[$i]->id;
-            $restaurants[$i] = (array) $restaurants_has_number[$i];
-        }
+        if (isset($restaurants_has_number)) {
+            for ($i = 0; $i < count($restaurants_has_number); $i++) {
+                $idSet[$i] = $restaurants_has_number[$i]->id;
+                $restaurants[$i] = (array) $restaurants_has_number[$i];
+            }
 
-        if (isset($restaurants)) {
             usort($restaurants, function ($restaurant1, $restaurant2) {
                 return $restaurant2['favorite_number'] - $restaurant1['favorite_number'];
             });
@@ -116,7 +116,6 @@ class HomeController extends Controller
         } else {
             $number = 0;
         }
-        // dd($restaurants);
 
         if ($number < 10) {
             $restaurants_created_at = DB::table('restaurants')
@@ -138,7 +137,7 @@ class HomeController extends Controller
                 ->toArray();
 
             foreach ($restaurants_created_at as $restaurant_created_at) {
-                if (in_array(((array) $restaurant_created_at)['id'], $idSet)) {
+                if (isset($idSet) && in_array(((array) $restaurant_created_at)['id'], $idSet)) {
                     continue;
                 } else {
                     $tempArray = (array) $restaurant_created_at;
