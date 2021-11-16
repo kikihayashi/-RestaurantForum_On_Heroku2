@@ -11,8 +11,8 @@
       <a href="{{route('UserInfoController.user',$friend->relation_user_id)}}">
         <!-- 放圖片 -->
         @php
-        if((File::exists('img/'.$friend->relationUserAccount.'.jpg'))){
-        $srcUrl="../../../img/".$friend->relationUserAccount.".jpg";
+        if((File::exists('img/'.$friend->relation_user_account.'.jpg'))){
+        $srcUrl="../../../img/".$friend->relation_user_account.".jpg";
         $altMsg="沒有大頭貼";
         } else {
         $srcUrl="https://lorempixel.com/400/200/cats/".($friend->relation_user_id%10);
@@ -23,7 +23,7 @@
         <img class="rounded" style="width: 140px;height:128px;" src={{$srcUrl}} alt={{$altMsg}}>
 
         <br><br>
-        <h4>{{$friend->relationUser_name}}</h4>
+        <h4>{{$friend->relation_user_name}}</h4>
       </a>
       <br>
     </div>

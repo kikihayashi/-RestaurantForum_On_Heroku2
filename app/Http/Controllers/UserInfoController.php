@@ -40,19 +40,19 @@ class UserInfoController extends Controller
         $follow = Relation::where('user_id', $selectUserID)
             ->where('follow', 'Y')
             ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
         $follower = Relation::where('relation_user_id', $selectUserID)
             ->where('follow', 'Y')
             ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
         $friend = Relation::where('user_id', $selectUserID)
             ->where('friend', 'Y')
             ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
         $array = [
@@ -170,7 +170,7 @@ class UserInfoController extends Controller
         $friends = Relation::where('user_id', $userID)
             ->where('friend', 'Y')
             ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
-            ->selectRaw('interpersonal_relations.* , users.name AS relationUser_name, users.account AS relationUserAccount')
+            ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
         return view('userInfo.detail.friend', ['allFriends' => $friends]);
