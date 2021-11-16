@@ -105,13 +105,13 @@
         @foreach($allFollow as $follow) <div class="div-img-user-restaurant">
           <a href="{{route('UserInfoController.user',$follow->relation_user_id)}}">
             <div class="div-img-avatar">
-              @if(File::exists('img/'.$follow->relationUserAccount.'.jpg'))
-              <img class="rounded mx-auto d-block" src="../../img/{{$follow->relationUserAccount}}.jpg" alt="沒有大頭貼">
+              @if(File::exists('img/'.$follow->relation_user_account.'.jpg'))
+              <img class="rounded mx-auto d-block" src="../../img/{{$follow->relation_user_account}}.jpg" alt="沒有大頭貼">
               @else
               <img class="rounded mx-auto d-block"
                 src="https://lorempixel.com/400/200/cats/{{$follow->relation_user_id%10}}" alt="圖片已失效">
               @endif
-              <h5>{{$follow->relationUser_name}}</h5>
+              <h5>{{$follow->relation_user_name}}</h5>
             </div>
           </a>
         </div>
@@ -133,14 +133,14 @@
           <a href="{{route('UserInfoController.user',$follower->user_id)}}">
             <div class="div-img-avatar">
 
-              @if(File::exists('img/'.$follower->relationUserAccount.'.jpg'))
-              <img class="rounded mx-auto d-block" src="../../img/{{$follower->relationUserAccount}}.jpg" alt="沒有大頭貼">
+              @if(File::exists('img/'.$follower->relation_user_account.'.jpg'))
+              <img class="rounded mx-auto d-block" src="../../img/{{$follower->relation_user_account}}.jpg" alt="沒有大頭貼">
               @else
               <img class="rounded mx-auto d-block" src="https://lorempixel.com/400/200/cats/{{$follower->user_id%10}}"
                 alt="圖片已失效">
               @endif
 
-              <h5>{{$follower->relationUser_name}}</h5>
+              <h5>{{$follower->relation_user_name}}</h5>
             </div>
           </a>
         </div>
