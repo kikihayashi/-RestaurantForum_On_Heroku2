@@ -15,7 +15,7 @@
         $srcUrl="../../../img/".$friend->relationUserAccount.".jpg";
         $altMsg="沒有大頭貼";
         } else {
-        $srcUrl="https://lorempixel.com/400/200/cats/. "($friend->relation_user_id%10);
+        $srcUrl="https://lorempixel.com/400/200/cats/".($friend->relation_user_id%10);
         $altMsg="圖片已失效";
         }
         @endphp
