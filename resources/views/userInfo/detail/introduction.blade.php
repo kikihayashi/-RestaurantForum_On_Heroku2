@@ -15,7 +15,7 @@
 
     <div class="field">
       <label for="user_introduction">簡介(給其他人看的)</label><br>
-      <input type="text" value="{{$thisUser->introduction}}" name="user[]" id="user_introduction">
+      <textarea style="height:120px;" name="user[]" id="user_introduction">{{$thisUser->introduction}}</textarea><br>
     </div>
 
     <br>
