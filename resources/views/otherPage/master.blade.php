@@ -15,7 +15,7 @@
           alt="沒有大頭貼">
         @else
         <img class="rounded" style="width: 140px;height:128px"
-          src="https://lorempixel.com/400/200/cats/{{$relation->user_id%10}}" alt="圖片已失效">
+          src="https://raw.githubusercontent.com/kikihayashi/RestaurantForum_Image/main/User/{{$relation->user_id%10}}.png?raw=true" alt="圖片已失效">
         @endif
 
         <h4 style="text-align:center">{{$relation->user_name}}</h4>

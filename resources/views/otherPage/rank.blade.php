@@ -8,7 +8,7 @@
   @foreach($allRestaurants as $thisRestaurant)
   <div class="row">
     <div>
-      <img style="height:100%" src="http://lorempixel.com/100/100/food/{{$thisRestaurant['id']%10}}" alt="圖片已失效" />
+      <img style="height: 150px;" src="https://github.com/kikihayashi/RestaurantForum_Image/blob/main/Food/{{$thisRestaurant['id']%10}}.jpg?raw=true" alt="圖片已失效" />
     </div>
     <div style="margin-left:3%;">
       <p>

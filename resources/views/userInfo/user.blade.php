@@ -11,7 +11,7 @@
         $srcUrl="../../img/".$thisUser->account.".jpg";
         $altMsg="沒有大頭貼";
         } else {
-        $srcUrl="https://lorempixel.com/400/200/cats/". ($thisUser->id%10);
+        $srcUrl="https://github.com/kikihayashi/RestaurantForum_Image/blob/main/User/".($thisUser->id%10).".png?raw=true";
         $altMsg="圖片已失效";
         }
         @endphp
@@ -62,7 +62,7 @@
           <a href="{{route('RestaurantController.restaurant',$comment->restaurant_id)}}">
             <div class="div-img-avatar">
               <img class="rounded mx-auto d-block"
-                src="http://lorempixel.com/100/100/food/{{$comment->restaurant_id%10}}" alt="圖片已失效">
+                src="https://github.com/kikihayashi/RestaurantForum_Image/blob/main/Food/{{$comment->restaurant_id%10}}.jpg?raw=true" alt="圖片已失效">
               <h5>{{$comment->restaurant_name}}</h5>
             </div>
           </a>
@@ -84,7 +84,7 @@
           <a href="{{route('RestaurantController.restaurant',$favorite->restaurant_id)}}">
             <div class="div-img-avatar">
               <img class="rounded mx-auto d-block"
-                src="http://lorempixel.com/100/100/food/{{$favorite->restaurant_id%10}}" alt="圖片已失效">
+                src="https://github.com/kikihayashi/RestaurantForum_Image/blob/main/Food/{{$favorite->restaurant_id%10}}.jpg?raw=true/" alt="圖片已失效">
               <h5>{{$favorite->restaurant_name}}</h5>
             </div>
           </a>
@@ -109,7 +109,7 @@
               <img class="rounded mx-auto d-block" src="../../img/{{$follow->relation_user_account}}.jpg" alt="沒有大頭貼">
               @else
               <img class="rounded mx-auto d-block"
-                src="https://lorempixel.com/400/200/cats/{{$follow->relation_user_id%10}}" alt="圖片已失效">
+                src="https://github.com/kikihayashi/RestaurantForum_Image/blob/main/User/{{$follow->relation_user_id%10}}.png?raw=true" alt="圖片已失效">
               @endif
               <h5>{{$follow->relation_user_name}}</h5>
             </div>
@@ -136,7 +136,7 @@
               @if(File::exists('img/'.$follower->relation_user_account.'.jpg'))
               <img class="rounded mx-auto d-block" src="../../img/{{$follower->relation_user_account}}.jpg" alt="沒有大頭貼">
               @else
-              <img class="rounded mx-auto d-block" src="https://lorempixel.com/400/200/cats/{{$follower->user_id%10}}"
+              <img class="rounded mx-auto d-block" src="https://github.com/kikihayashi/RestaurantForum_Image/blob/main/User/{{$follower->user_id%10}}.png?raw=true"
                 alt="圖片已失效">
               @endif
 
