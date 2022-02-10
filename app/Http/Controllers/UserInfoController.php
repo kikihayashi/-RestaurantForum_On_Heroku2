@@ -91,8 +91,8 @@ class UserInfoController extends Controller
         if (Hash::check($newAccount['password'], $user->password)) {
 
             //如果沒有重設密碼
-            if (strlen($newAccount['new_password']) == 0 && 
-            strlen($newAccount['new_password_confirmation']) == 0) {
+            if ($newAccount['new_password'] == null && 
+           $newAccount['new_password_confirmation'] == null) {
                 $user = User::findOrFail(Auth::id());
                 $user->name = $newAccount['new_name'];
                 $user->email = $newAccount['new_email'];
