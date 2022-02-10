@@ -89,26 +89,37 @@ class UserInfoController extends Controller
         }
         //如果目前密碼確認無誤
         if (Hash::check($newAccount['password'], $user->password)) {
-            //如果新密碼 & 再次驗證相同
-            if (!strcmp($newAccount['new_password'], $newAccount['new_password_confirmation'])) {
+
+            //如果沒有重設密碼
+            if (strlen($newAccount['new_password']) == 0 && 
+            strlen($newAccount['new_password_confirmation']) == 0) {
                 $user = User::findOrFail(Auth::id());
                 $user->name = $newAccount['new_name'];
                 $user->email = $newAccount['new_email'];
-
-                //如果新密碼有填東西
-                if (strlen($newAccount['new_password']) > 0) {
-                    //如果新密碼有小於6個字元，跳出錯誤，密碼至少6個字元
-                    if (strlen($newAccount['new_password']) < 6) {
-                        return redirect(route('UserInfoController.manage'))->with('errorMessage', '新密碼至少6個字元！');
-                    }
-                    $user->password = Hash::make($newAccount['new_password']);
-                }
                 $user->save();
                 return redirect(route('HomeController.home'))->with('message', '資料修改成功！');
-            }
-            //如果新密碼 & 再次驗證不相同，跳出錯誤
-            else {
-                return redirect(route('UserInfoController.manage'))->with('errorMessage', '新密碼與再次輸入不一致！');
+            } else {
+                //如果新密碼 & 再次驗證相同
+                if (!strcmp($newAccount['new_password'], $newAccount['new_password_confirmation'])) {
+                    $user = User::findOrFail(Auth::id());
+                    $user->name = $newAccount['new_name'];
+                    $user->email = $newAccount['new_email'];
+
+                    //如果新密碼有填東西
+                    if (strlen($newAccount['new_password']) > 0) {
+                        //如果新密碼有小於6個字元，跳出錯誤，密碼至少6個字元
+                        if (strlen($newAccount['new_password']) < 6) {
+                            return redirect(route('UserInfoController.manage'))->with('errorMessage', '新密碼至少6個字元！');
+                        }
+                        $user->password = Hash::make($newAccount['new_password']);
+                    }
+                    $user->save();
+                    return redirect(route('HomeController.home'))->with('message', '資料修改成功！');
+                }
+                //如果新密碼 & 再次驗證不相同，跳出錯誤
+                else {
+                    return redirect(route('UserInfoController.manage'))->with('errorMessage', '新密碼與再次輸入不一致！');
+                }
             }
         }
         //如果密碼錯誤，跳出錯誤不可修改
