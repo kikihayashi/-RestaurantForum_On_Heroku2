@@ -30,8 +30,6 @@ class HomeController extends Controller
      */
     public function home()
     {
-        // $restaurants = Restaurant::join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-
         $categories = Category::orderBy('id', 'ASC')->get();
         $restaurants = Restaurant::join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
             ->selectRaw('restaurants.* , categories.name AS category_name')
@@ -58,14 +56,14 @@ class HomeController extends Controller
     public function news()
     {
         $restaurants = Restaurant::orderBy('created_at', 'DESC')
-            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
             ->selectRaw('restaurants.* , categories.name AS category_name')
             ->take(10)
             ->get();
 
         $comments = Comment::orderBy('updated_at', 'DESC')
-            ->join('restaurants', 'comments.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
-            ->join('users', 'comments.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
+            ->join('restaurants', 'comments.restaurant_id', '=', DB::raw("CAST(restaurants.id AS VARCHAR)"))
+            ->join('users', 'comments.user_id', '=', DB::raw("CAST(users.id AS VARCHAR)"))
             ->selectRaw('comments.* , restaurants.name AS restaurant_name, users.name AS user_name')
             ->take(10)
             ->get();
@@ -87,8 +85,8 @@ class HomeController extends Controller
         }
 
         $restaurants_has_number = DB::table('restaurants')
-            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
-            ->join('favorites', DB::raw("CAST(restaurants.id AS CHAR)"), '=', 'favorites.restaurant_id')
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
+            ->join('favorites', DB::raw("CAST(restaurants.id AS VARCHAR)"), '=', 'favorites.restaurant_id')
             ->select('restaurants.id',
                 'restaurants.name',
                 'restaurants.content',
@@ -123,7 +121,7 @@ class HomeController extends Controller
 
         if ($number < 10) {
             $restaurants_created_at = DB::table('restaurants')
-                ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+                ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
                 ->select('restaurants.id',
                     'restaurants.name',
                     'restaurants.content',
@@ -172,7 +170,7 @@ class HomeController extends Controller
         // dd($statusNew);
 
         $relations = DB::Table('interpersonal_relations')
-            ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
+            ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS VARCHAR)"))
             ->select('interpersonal_relations.user_id',
                 'users.name AS user_name', 'users.account AS user_account', DB::raw('COUNT(*) AS follow_number'))
             ->where('interpersonal_relations.follow', 'Y')

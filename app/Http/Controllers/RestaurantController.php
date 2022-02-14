@@ -16,7 +16,7 @@ class RestaurantController extends Controller
     {
         $categories = Category::orderBy('id', 'ASC')->get();
         $restaurants = Restaurant::where('category_id', $category_id)
-            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
             ->selectRaw('restaurants.* , categories.name AS category_name')
             ->paginate(6);
 
@@ -40,12 +40,12 @@ class RestaurantController extends Controller
     public function restaurant($restaurant_id)
     {
         $restaurant = Restaurant::where('restaurants.id', $restaurant_id)
-            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
             ->selectRaw('restaurants.* , categories.name AS category_name')
             ->firstOrFail();
 
         $comments = Comment::where('restaurant_id', $restaurant_id)
-            ->join('users', 'comments.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
+            ->join('users', 'comments.user_id', '=', DB::raw("CAST(users.id AS VARCHAR)"))
             ->selectRaw('comments.* , users.name AS user_name')
             ->orderBy('updated_at', 'DESC')
             ->get();

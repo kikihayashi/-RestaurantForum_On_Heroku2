@@ -20,7 +20,7 @@ class UserInfoController extends Controller
         $user = User::findOrFail($selectUserID);
 
         $comments = DB::table('comments')
-            ->join('restaurants', 'comments.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
+            ->join('restaurants', 'comments.restaurant_id', '=', DB::raw("CAST(restaurants.id AS VARCHAR)"))
             ->select('comments.restaurant_id', 'restaurants.name AS restaurant_name')
             ->where('comments.user_id', $selectUserID)
             ->groupBy('comments.restaurant_id', 'restaurants.name')
@@ -28,7 +28,7 @@ class UserInfoController extends Controller
 
         $favorite = Favorite::where('user_id', $selectUserID)
             ->where('is_favorite', '=', 'Y')
-            ->join('restaurants', 'favorites.restaurant_id', '=', DB::raw("CAST(restaurants.id AS CHAR)"))
+            ->join('restaurants', 'favorites.restaurant_id', '=', DB::raw("CAST(restaurants.id AS VARCHAR)"))
             ->selectRaw('favorites.* , restaurants.name AS restaurant_name')
             ->get();
 
@@ -39,19 +39,19 @@ class UserInfoController extends Controller
 
         $follow = Relation::where('user_id', $selectUserID)
             ->where('follow', 'Y')
-            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
+            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS VARCHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
         $follower = Relation::where('relation_user_id', $selectUserID)
             ->where('follow', 'Y')
-            ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
+            ->join('users', 'interpersonal_relations.user_id', '=', DB::raw("CAST(users.id AS VARCHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
         $friend = Relation::where('user_id', $selectUserID)
             ->where('friend', 'Y')
-            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
+            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS VARCHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
@@ -180,7 +180,7 @@ class UserInfoController extends Controller
     {
         $friends = Relation::where('user_id', $userID)
             ->where('friend', 'Y')
-            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS CHAR)"))
+            ->join('users', 'interpersonal_relations.relation_user_id', '=', DB::raw("CAST(users.id AS VARCHAR)"))
             ->selectRaw('interpersonal_relations.* , users.name AS relation_user_name, users.account AS relation_user_account')
             ->get();
 
@@ -278,7 +278,7 @@ class UserInfoController extends Controller
     public function showRestaurant()
     {
         $restaurants = Restaurant::orderBy('restaurants.updated_at', 'DESC')
-            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
             ->selectRaw('restaurants.* , categories.name AS category_name')
             ->paginate(5);
 
@@ -292,7 +292,7 @@ class UserInfoController extends Controller
     public function readRestaurant($id)
     {
         $restaurant = Restaurant::where('restaurants.id', '=', $id)
-            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS CHAR)"))
+            ->join('categories', 'restaurants.category_id', '=', DB::raw("CAST(categories.id AS VARCHAR)"))
             ->selectRaw('restaurants.* , categories.name AS category_name')
             ->firstOrFail();
 
